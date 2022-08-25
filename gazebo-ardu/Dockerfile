@@ -2,6 +2,7 @@ FROM carbon225/ros-gazebo:humble-fortress
 
 RUN apt-get update
 
+
 # Ardupilot (for SITL)
 RUN git clone https://github.com/ArduPilot/ardupilot.git /code/ardupilot && \
     cd /code/ardupilot && \
@@ -10,6 +11,10 @@ RUN git clone https://github.com/ArduPilot/ardupilot.git /code/ardupilot && \
 RUN cd /code/ardupilot && \
     sed -i '6,9d' Tools/environment_install/install-prereqs-ubuntu.sh && \
     USER=root Tools/environment_install/install-prereqs-ubuntu.sh -y
+ENV PATH=$PATH:/opt/gcc-arm-none-eabi-10-2020-q4-major/bin:/code/ardupilot/Tools/autotest:/usr/lib/ccache:/root/.local/bin:/root/bin
+RUN cd /code/ardupilot && \
+    ./waf configure --board sitl && \
+    ./waf copter
 
 
 # Ardupilot Gazebo plugin
