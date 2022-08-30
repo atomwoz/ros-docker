@@ -27,3 +27,8 @@ RUN cd /code/ardupilot_gazebo && \
 # make the plugin visible to gazebo
 ENV IGN_GAZEBO_SYSTEM_PLUGIN_PATH=/code/ardupilot_gazebo/build:$IGN_GAZEBO_SYSTEM_PLUGIN_PATH
 ENV IGN_GAZEBO_RESOURCE_PATH=/code/ardupilot_gazebo/models:/code/ardupilot_gazebo/worlds:$IGN_GAZEBO_RESOURCE_PATH
+
+
+COPY scripts /root/scripts
+ENV PATH=$PATH:/root/scripts
+RUN echo source '/opt/ros/$ROS_DISTRO/setup.bash' >> /root/.bashrc
