@@ -29,6 +29,13 @@ ENV IGN_GAZEBO_SYSTEM_PLUGIN_PATH=/code/ardupilot_gazebo/build:$IGN_GAZEBO_SYSTE
 ENV IGN_GAZEBO_RESOURCE_PATH=/code/ardupilot_gazebo/models:/code/ardupilot_gazebo/worlds:$IGN_GAZEBO_RESOURCE_PATH
 
 
+# Install VIM
+RUN apt-get install -y vim
+
+# Install mavros
+RUN apt-get install -y ros-humble-mavros ros-humble-mavros-extras
+
+# Configure scripts
 COPY scripts /root/scripts
 ENV PATH=$PATH:/root/scripts
 RUN echo source '/opt/ros/$ROS_DISTRO/setup.bash' >> /root/.bashrc
